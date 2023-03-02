@@ -1,0 +1,38 @@
+23/2/2022 - Python
+
+Scala - Functional Programming language
+SPARK - Big Data 
+
+
+====== Applications of Python:
+
+Web Development and GUI Application - Django Framework
+Machine learning - sklearn
+Data Analytics - From Numpy
+AI - ML will be subset to AI
+IOT - Machine to Machine
+
+
+
+Numpy - Mathematical operations
+Pandas - Data cleaning, Data handling and Data pre-processing
+Scipy - Statistical operations (Hypothesis Testing-Advanced)
+Matplotlib - Basic Data Visualization
+Seaborn - Advanced Data Visualization
+Plotly - Interactive and Complex Data Visualization
+Scikit learn - Machine Learning 
+Tensorflow - Deep learning
+
+
+====== Environments of Python:
+Python	Scientific - Jupyter Notebook, Google colab, Pycharm, Spyder
+Python	Basic - GUI, Command Line
+
+
+
+====== Advantages of Anaconda:
+Big Data Support and 400+ Packages are pre-installed
+
+
+====== Setting up of Jupyter Notebook
+Refer Python Day 1.ipynb Jupyter Notebook for furthur notes
