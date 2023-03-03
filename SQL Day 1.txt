@@ -1,0 +1,11 @@
+Data Definition Language:
+Create
+Alter
+Drop
+Truncate
+
+Data Manipulation Language:
+Select
+Insert
+Update
+Merge
