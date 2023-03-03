@@ -1,0 +1,12 @@
+Structured DataBases:
+My SQL(), Oracle, Microsoft SQL, PostgreSQL(Recommended)
+
+Unstructured DataBases:
+MongoDB, Cassandra, Neo4J, Redis
+
+Property Graphs are represented by Vertex(Records) and edges(relation)
+These are used for mapping the followers in a social media platform like Twitter, Facebook and Instagram
+This property helps for ranking of profiles based on the activity
+These types of data can be created and analysed using SPARK Framework which has GraphX to work with.
+
+Entity Relation Model: Establish the relations between the entities in a DataBase
