@@ -166,3 +166,54 @@ group by job, day_of_week with rollup order by job;
 select job, day_of_week, sum(y) as success_count from banking
 group by job, day_of_week with rollup
 having job like "m%" and day_of_week is null;
+
+
+-- each set of day_of_week rows for a given job and marital status generates an extra aggregated summary
+select job, marital, day_of_week, count(y) as success_count from banking
+where y>0
+group by job, marital, day_of_week with rollup
+order by job desc;
+
+
+-- 17. SUBQUERY
+-- A mySQL Query is query nested within another query
+-- such as select, insert, update, delete. 
+-- it can be nested within another subquery
+
+-- Exercise: write a query to show all success count where call duration was greater than avg duration
+select count(*) from banking where duration>(select avg(duration) from banking) and y=1;
+
+select contact_month, count(*) from banking where duration>(select avg(duration) from banking) and y=1
+group by contact_month;
+
+
+-- From Clause in subquery
+-- select * from (subquery);
+
+-- when you use subquery in the from clause,
+-- the result set returned from a subquery will be used as a table.
+
+-- Exercise: Write a query to show weekly max, min, mean suceess status
+select min(success_count) as min, max(success_count) as max, avg(success_count) as mean from  
+(select day_of_week, sum(y) as success_count from banking 
+group by day_of_week) as sub;
+
+
+-- 18. UPDATE
+select age from banking;
+
+select age, sum(y) as success_count from banking
+group by age order by success_count desc;
+
+alter table banking add column age_group varchar(20);
+
+set sql_safe_updates=0;
+update banking
+set age_group = if (age<=25,"<25",
+				if (age > 40, "40+","25-40"
+                )
+);
+
+select age_group, sum(y) as emp_num, count(y) as total, (sum(y)/count(y))*100 as success_rate from banking 
+group by age_group
+order by success_rate desc;
