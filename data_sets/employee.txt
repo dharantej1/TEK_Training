@@ -1,0 +1,8 @@
+id,name,age,address,salary
+1,Ramesh,32,Delhi,80000.00
+2,Kiran,23,Patna,60000.00
+3,Shilpa,21,Ranchi,20000.00
+4,Chandan,23,Patliputra,26000.00
+5,Harsha,24,Chandighar,34000.00
+6,Manohar,20,UP,180000.00
+7,Mufty,22,Lucknow,40000.00

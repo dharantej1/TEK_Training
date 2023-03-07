@@ -1,0 +1,27 @@
+-- 1.	Write SQL command to create a database named hremployeeDB and a table named HR_Employee with columns for 
+-- EmployeeID, Department, JobRole, Attrition, Gender, Age, MaritalStatus, Education, EducationField, BusinessTravel,
+-- JobInvolvement, JobLevel, JobSatisfaction, Hourlyrate, Income, Salaryhike, OverTime, Workex, YearsSinceLastPromotion,
+-- EmpSatisfaction, TrainingTimesLastYear, WorkLifeBalance, Performance_Rating, and set EmployeeID as the primary key.
+
+-- 2.	Return the shape of the table
+-- 3.	Show the count of Employee & percentage Workforce in each Department.
+-- 4.	Which gender have higher strength as workforce in each department?
+-- 5.	Show the workforce in each Job Role
+-- 6.	Show Distribution of Employee's Age Group.
+-- 7.	Compare all marital status of employee and find the most frequent marital status.
+-- 8.	What is Job satisfaction level of employee?
+-- 9.	How frequently employee is going on Business Trip.
+-- 10.	Show the Department with Highest Attrition Rate (Percentage)
+-- 11.	Show the Job Role with Highest Attrition Rate (Percentage)
+-- 12.	Show Distribution of Employee's Promotion, Find the maximum chances of employee getting promoted.
+-- 13.	Find the Attrition Rate for Marital Status.
+-- 14.	Find the Attrition Count & Percentage for Different Education Levels
+-- 15.	Find the Attrition & Percentage Attrition for Business Travel.
+-- 16.	Find the Attrition & Percentage Attrition for Various JobInvolvement
+-- 17.	Show Attrition Rate for Different JobSatisfaction.
+-- 18.	Find key reasons for Attrition in Company.
+-- 19.	Return all employee where WorkEx greater than 10, provided that they travel frequently, WorkLifeBalance 
+-- as Good and JobSatisfaction is Very High.
+
+-- 20.	 Write query to display who has better WorkLifeBalance , Married, Single or Divorced provided that 
+-- Performace_Rating is Outstanding. 
