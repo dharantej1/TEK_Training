@@ -20,7 +20,7 @@ create table if not exists bank(
     poutcome varchar(30),
     y varchar(10)
 );
-use bankdb;
+
 select * from bank limit 10;
 -- 1. give the max, mean and min age of the targeted customer
 select max(age) as max_age, avg(age) as mean_age, min(age) as min_age from bank;
