@@ -92,9 +92,11 @@ select
 		when weekday(trade_date)=4 then "Friday"
 		when weekday(trade_date)=5 then "Saturday"
 		when weekday(trade_date)=6 then "Sunday"
-	end as weekdays, round(avg(spy),4),round(avg(gld),4),
-    round(avg(amzn),4),round(avg(goog),4),round(avg(kpti),4),
-    round(avg(gild),4),round(avg(mpc),4)
+	end as weekdays, 
+    round(avg(spy),4),round(avg(gld),4),
+    round(avg(amzn),4),round(avg(goog),4),
+    round(avg(kpti),4),round(avg(gild),4),
+    round(avg(mpc),4)
     from stocks
     group by weekdays
     order by weekdays;
