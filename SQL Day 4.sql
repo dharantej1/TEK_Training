@@ -58,4 +58,44 @@ select trade_date,
         when weekday(trade_date)=5 then "Saturday"
         when weekday(trade_date)=6 then "Sunday"
 	end as weekday
-from stocks;
+from stocks limit 5;
+alter table stocks add column Week_day varchar(20);
+set sql_safe_updates=0;
+update stocks
+	set Week_day = 
+		case
+			when weekday(trade_date)=0 then "Monday"
+			when weekday(trade_date)=1 then "Tuesday"
+			when weekday(trade_date)=2 then "Wednesday"
+			when weekday(trade_date)=3 then "Thursday"
+			when weekday(trade_date)=4 then "Friday"
+			when weekday(trade_date)=5 then "Saturday"
+			when weekday(trade_date)=6 then "Sunday"
+		end ;
+select * from stocks limit 5;
+set sql_safe_updates=1;
+
+alter table stocks add column overall varchar(10);
+set sql_safe_updates=0;
+update stocks set overall = if(spy + gld + amzn + goog + kpti + gild + mpc > 0,"UP","DOWN");
+select * from stocks limit 5;
+
+select overall, count(*) from stocks 
+group by overall; 
+
+select 
+	case
+		when weekday(trade_date)=0 then "Monday"
+		when weekday(trade_date)=1 then "Tuesday"
+		when weekday(trade_date)=2 then "Wednesday"
+		when weekday(trade_date)=3 then "Thursday"
+		when weekday(trade_date)=4 then "Friday"
+		when weekday(trade_date)=5 then "Saturday"
+		when weekday(trade_date)=6 then "Sunday"
+	end as weekdays, round(avg(spy),4),round(avg(gld),4),
+    round(avg(amzn),4),round(avg(goog),4),round(avg(kpti),4),
+    round(avg(gild),4),round(avg(mpc),4)
+    from stocks
+    group by weekdays
+    order by weekdays;
+		
