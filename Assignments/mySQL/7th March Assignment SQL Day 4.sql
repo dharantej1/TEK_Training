@@ -120,3 +120,17 @@ select emp.emp_name, dept.dept_name, comp.company_name,comp.location from employ
 -- similar to inner join without condition (problem! - condition basis is unknown.)
 select * -- emp.emp_name, dept.dept_name 
 from employee emp natural join department dept;
+
+-- natural join with no common column names will do the cross join
+select * from employee; 
+select * from department;
+select * -- emp.emp_name, p.project_name, p.team_id
+from employee emp natural join project;
+
+-- 11. SELF JOIN
+-- it joins the table with itself using either your inner join or left join
+-- self join can also be done using where clause
+
+-- Exercise: show all the employee names who have same salary but different names
+select * 
+from employee emp1 join employee emp2 on (emp1.salary=emp2.salary and emp1.emp_name!=emp2.emp_name) ; 
