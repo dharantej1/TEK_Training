@@ -133,4 +133,4 @@ from employee emp natural join project;
 
 -- Exercise: show all the employee names who have same salary but different names
 select * 
-from employee emp1 join employee emp2 on (emp1.salary=emp2.salary and emp1.emp_name!=emp2.emp_name) ; 
+from employee emp1 join employee emp2 on (emp1.salary=emp2.salary and emp1.emp_name!=emp2.emp_name); 
