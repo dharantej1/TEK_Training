@@ -165,7 +165,7 @@ select * from key_employee partition(p1);
 
 
 -- So totally, Partions are of 4 types:
--- 		partition by range
---    	partition by list
---    	partition by hash
---    	partition by key
+-- 		partition by Range
+--    	partition by List
+--    	partition by Hash
+--    	partition by Key
