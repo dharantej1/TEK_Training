@@ -83,6 +83,7 @@ INSERT INTO part_employee VALUES
 (5,"Harsha",24,"Chandighar",34000.00),
 (6,"Manohar",20,"UP",180000.00),
 (7,"Mufty",22,"Lucknow",40000.00);
+
 -- show number of partitions and data rows in each partition
 select partition_name, table_rows 
 from information_schema.partitions
@@ -96,7 +97,7 @@ select partition_name, table_rows
 from information_schema.partitions
 where table_schema="accountsdb" and table_name="part_employee";
 
--- partition by list
+-- partition by LIST
 -- product id (101,102,106)
 -- product id (103,105,108)
 -- product id (104,107,109)
@@ -109,6 +110,7 @@ partition p1 values in (103, 105, 108),
 partition p2 values in (104, 107, 109)
 );
 
+select * from part_employee partition(p0);
 
 -- Partition by HASH value
 -- partitioning table is used to distribute according to some predefined number of partitions
@@ -131,9 +133,14 @@ partitions 5;
 select partition_name, table_rows from information_schema.partitions
 where table_schema="accountsdb" and table_name="partition_employee";
 
-
+select * from partition_employee partition(p0);
 -- Partition by KEY
 -- Syntax:
 -- -- create table partition_table(schema_of_table) 
 -- -- partition by key (column_name);
-                                          
+
+-- So totally, Partions are of 4 types:
+-- 		partition by range
+--    	partition by list
+--    	partition by hash
+--    	partition by key
