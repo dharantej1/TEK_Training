@@ -110,7 +110,7 @@ partition p1 values in (103, 105, 108),
 partition p2 values in (104, 107, 109)
 );
 
-select * from part_employee partition(p0);
+select * from part_products partition(p0);
 
 -- Partition by HASH value
 -- partitioning table is used to distribute according to some predefined number of partitions
@@ -129,15 +129,40 @@ create table if not exists partition_employee(empid int,
                                               city varchar(20), 
                                               country varchar(20))
 partition by hash (empid)
-partitions 5;    
+partitions 5;   
+-- Employee_part.csv table import from wizard
+
 select partition_name, table_rows from information_schema.partitions
 where table_schema="accountsdb" and table_name="partition_employee";
 
 select * from partition_employee partition(p0);
+select * from partition_employee partition(p1);
+
 -- Partition by KEY
 -- Syntax:
 -- -- create table partition_table(schema_of_table) 
 -- -- partition by key (column_name);
+-- use partition by key when you have primary key, unique key
+-- while creating the table dont mention key name in 
+-- partition by key()
+-- empty () takes the primary_key as the key
+
+drop table if exists key_employee;
+create table if not exists key_employee(empid int, 
+									    first_name varchar(20), 
+									    last_name varchar(20), 
+									    gender varchar(20),	
+									    city varchar(20), 
+									    country varchar(20))
+partition by key (country)
+partitions 5;
+
+select partition_name, table_rows from information_schema.partitions
+where table_schema="accountsdb" and table_name="key_employee";
+
+select * from key_employee partition(p1);
+
+
 
 -- So totally, Partions are of 4 types:
 -- 		partition by range
