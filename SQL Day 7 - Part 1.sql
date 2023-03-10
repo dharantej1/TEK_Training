@@ -110,3 +110,17 @@ select employeeid, department, jobrole, gender, income, workex,
         end as income_group
  from hr_employee
  order by income_group;
+ 
+ 
+ alter table hr_employee add column Income_comparision varchar(20);
+ set sql_safe_updates=0;
+ select * from hr_employee limit 10;
+with temp as  (
+select employeeid,
+lag(Income) over(partition by jobrole order by employeeid)  
+as prevous_Income from hr_employee) 
+update hr_employee , temp
+set hr_employee.category = temp.prevous_income
+where hr_employee.employeeid = temp.employeeid;
+
+select * from hr_employee;
