@@ -93,6 +93,7 @@ grant select on product_order_summary to root;
 -- 				   order of the displaying
 -- but can add a new columns at the end
 
+-- creates or replaces the new view with the same name or a new name
 create or replace view product_order_summary as 
 select o.order_id,o.date_of_order,c.customer_name,p.product_id,p.product_name,o.quantity,
 	   round((p.price * o.quantity)-((p.price*o.quantity)*o.discount),3) as cost 
