@@ -159,7 +159,7 @@ EER Diagram (pasrt of DWH Design)
 
 
 ====== SCHEMA (Star and Snowflake) ======
-
+(DESIGN PART)
 (Tree Diagrams)
 
 (Star Schema): Fact Table -Dimension
@@ -177,3 +177,47 @@ EER Diagram (pasrt of DWH Design)
 		      -Dimension -
 				 |
 				 -Dimension
+
+
+------ Characteristics of snowflake: ------
+- uses smaller disk space
+- easier to implementta dimension is added to the schema
+- more maintenance efforts are needed because of more lookup table
+- query performance is more compared to star schema
+
+
+
+
+FACT:
+- holds the data to be analysed
+- consists 2 major attributes
+	- foreign key of dimension
+	- measures
+
+DIMENSION:
+- contains descriptive measures
+- slice and dice can be done
+- adds meaning to measures and facts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
