@@ -1,0 +1,106 @@
+====== Industry Revolution ======
+Industry 1.0 - Steam Engines
+Industry 2.0 - Electrification
+Industry 3.0 - Information Age(semi conductors and computer), 
+	       interface between human and machine
+Industry 4.0 - Intelligence Age
+	       	- Data Engineering - managing the data
+		- Data Science - to get hidden insights from the data
+		- Machine Learning - subset of AI which reads the data and analyses the
+				     data and make predictions based on the previous knowledge
+		- IOT - Internet of Things
+		- Block Chain - protecting the data using various techniques
+		- Cloud - Cloud services
+
+====== Data Engineer ======
+1. Data Ingestion - Scoop, Kafka
+2. Data lack - storage
+3. Transformation - pre-process data in usable form
+4. Data Warehouse - Data is more sorted and stored
+5. Exploration for data analysis 
+6. Data Science 
+7. Data Management
+
+====== Data Pre-processing: ======
+1. Missing values : replace by central tendency
+		- continuous values - mean
+		- discrete - median/ mean
+		- categorical - mode
+
+2. Duplicate values : remove the duplicate values (drop)
+
+3. Outliers : if they are less in number:
+			remove / drop the values
+	      if they are large in number:
+			replace them with the central tendency
+
+4. ETL : Extract Transform Load 
+
+====== Data Science - Discriptive Analysis ======
+(we use statistics here, what has happened?)
+1. Data Mining
+	- Data cleaning
+	- Data manipulation (data wrangling - apply data to preprocess duplicate entries, unwanted elements
+			in the data set, etc)
+	- Data preprocessing (if the data is of catrgorical type we apply label encoding to convert it into numerical data)
+
+2. Exploratory Data Analysis (analysis using visualization of the data)
+	- Past analysis of the data 
+	- Statistical (descriptive statistics analysis)
+		- boxplot, histogram, plot, density plot (KDE - kernel density estimator)
+3. Data analysis
+	- Machine learning (gives out the rules when the input data set is given)
+		- Update/ Upgrade
+		- Experience
+		- Performance
+
+
+====== Business Intelligence ======
+acts transforming raw/ operation data into useful information for business analysis
+Planning => Data gathering => Data analysis => Business actions
+(MISSED FEW TOPICS)
+KAFKA can read the data directly from the web/ IP Address
+
+
+====== Data Warehouse (Structured Data) ======
+(where as the Data Lake is unstructured data format)
+- Data Warehouse works on the concept of data mart(one particular service)
+
+
+SCALING is of two types - 	Horizontal scaling - Increasing the servers
+				Vertical scaling - Updating the resources of a particular server
+
+
+OLTP RDBMS - (Online Transaction Processing) that captures, stores and process data from transaction
+OLAP Data warehouse - (Online Analytical Prosessing) use complex query to analyse aggregate historical data from OLTP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
