@@ -69,38 +69,111 @@ KAFKA can read the data directly from the web/ IP Address
 
 SCALING is of two types - 	Horizontal scaling - Increasing the servers
 				Vertical scaling - Updating the resources of a particular server
-
+			
 
 OLTP RDBMS - (Online Transaction Processing) that captures, stores and process data from transaction
 OLAP Data warehouse - (Online Analytical Prosessing) use complex query to analyse aggregate historical data from OLTP
 
 
+====== Introduction to Data Warehouse ======
+- DWH is build by combining data from multiple sources (variety of data) and that supports analytical reporting.
+
+- |	  |			|	  |
+  |sources| ==== extracted ===> |transform| =====> data warehouse(collection of data marts) ======> - scales
+  |_______|			|_________|							    - finance
+												    - customers	
+
+\______________________________________Conventional Data Warehouse __________________________________________/
+
+
+
+====== Characteristics of Data Warehouse ======
+- Subject oriented: provides information on a topic(such as inventory and supply chain) rather than company operations
+- Time variant: data inserted within DWH is predetermined with particular interval of time that delivers info(time, date, month) are typically present which 
+		decides data intervalscan be daily, weekly, monthly, yearly
+- Integrated: combines data from various sourceswhich include flat files, structured and semi structured storage and master data. 
+- persistent and non-volatile: data in DWH is permanent and defined by its names, operations such as delete, update and insert that is done in software applications
+			       over data is lost in DWH. Prior data isn't deleted when new data is added. Historical data is preserved for comparisions, 
+			       trends and analytics
+
+
+Slice and Dice Dice can be done with the help of foreign keys(one to one / one to many)
+
+
+		Slice			|		Dice
+_______________________________________________________________________________
+1. Small view				    1.Combining multiple smaller views
+2. Slicing is about filtering		    2.To zoom into multiple features
+
+
+
+		DBMS			|		RDBMS
+_______________________________________________________________________________
+1. store data as files				1.stored data in tabular form
+2. no relation between data		    	2.table can form relations
+3. Normalization is not present			3. Normalization is present
 
 
 
 
 
+====== Cloud ====== Data Life Cycle ======
+
+ (Source)    ======> (Ingestion)           ======>     (Exploration)      ======>        (Prepare and Train)       ======>       Model and Serve
+- CRM		    - Ex.Azure data factory	      - SQL DWarehouse			- Azure Data Bricks			- Synapse
+- Image		    - Data factory		      - Azure Databricks		- SQL					- Azure SQL DW
+- IOT		    - HDFS								- Python
+- Cloud		    - Polybase
+						\______________ Extract, Transform, Load (ETL)___________/
 
 
 
 
+====== FACT Vs DIMENSION TABLE ======
+
+			Fact			 |			Dimensional Table
+---------------------------------------------------------------------------------------------------------
+							Definition: comparision table to fact table 
+							that containsdescriptive attributes, to be 
+							used as query
+_________________________________________________________________________________________________________		
+1. contains measurements, facts, foreign keys		1. contains dimension of fact table
+   to dimensional table. fact table is primary
+   table in dimensional table
+
+2. 							2. how dimensional table is joined to 
+							   fact table --> foreign keys
+
+3.							3. dimension table can also contain one or more 
+							   hierarchial relationship
+
+4. Keys: Primary key in fact table is mapped as 	4. dimension table has primary key column that  
+   foreign to dimensional table				   uniquely identifies each dimension
 
 
+5. Design: fact table is defined by their		5. Dimensional table should be wordly 
+   gain or its most atomic level			   descriptive complete and quality assured
 
 
+EER Diagram (pasrt of DWH Design)
 
 
+====== SCHEMA (Star and Snowflake) ======
 
+(Tree Diagrams)
 
+(Star Schema): Fact Table -Dimension
+		  	 |
+			 -Dimension
+			 |
+			 -Dimension
+			 |
+			 -Dimension
 
-
-
-
-
-
-
-
-
-
-
-
+(Snowflake): Fact Table -Dimension -
+		      |		   |
+		      |		   -Dimension
+		      |
+		      -Dimension -
+				 |
+				 -Dimension
