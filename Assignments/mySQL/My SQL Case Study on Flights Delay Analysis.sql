@@ -104,13 +104,72 @@ order by mean_arrival desc;
 -- n)	Create a partitioning table “flights_partition” using suitable partitioned by schema.
 CREATE TABLE flights_partition (
   id int,  year int,  month int,  day int,  day_of_week int,  airline text,  flight_number int,  tail_number text,  origin_airport text,  destination_airport text,  scheduled_departure int,  departure_time int,  departure_delay int,  taxi_out int,  wheels_off int,  scheduled_time int,  elapsed_time int,  air_time int,  distance int,  wheels_on int,  taxi_in int,  scheduled_arrival int,  arrival_time int,  arrival_delay int,  diverted int,  cancelled int
-)PARTITION BY RANGE columns (year)(
-	partition flights_partition_2012 values less than (2012),
-    partition flights_partition_2013 values less than (2013),
-    partition flights_partition_2014 values less than (2014),
-    partition flights_partition_2015 values less than (2015),
-    partition flights_partition_2016 values less than (2016)
+)PARTITION BY list (month)(
+	partition month1 values in (1),
+	partition month2 values in (2),
+	partition month3 values in (3)
 );
 
+select * from flights_partition partition(month1);
+
 -- o)	Finding all diverted Route from a source to destination Airport & which route is the most diverted
-select distinct airline from flights;
+select origin_airport, destination_airport, count(*) as diverted
+from flights
+group by origin_airport, destination_airport
+order by diverted desc
+limit 10;
+
+-- p)	Write a query to show Top 3 airlines from each airport making most Delays.(Use Dense Rank/ Rank)
+select * from (
+	select origin_airport as airport, airline, count(*) as num_delays,
+    dense_rank() over(partition by origin_airport order by count(*) desc) as rank_val
+    from flights
+    where departure_delay>0
+    group by origin_airport, airline
+) as t
+where rank_val>3
+order by airport, rank_val, num_delays desc
+limit 3;
+
+-- q)	Write a query to show Top 10 airlines from each week making most Delays. Find its Ranking.
+SELECT day_of_week, airline, num_delays, rank_val
+FROM (
+    SELECT day_of_week, airline, num_delays, rank_val
+    FROM (
+        SELECT DAY_OF_WEEK, AIRLINE, COUNT(*) AS num_delays,
+            RANK() OVER (PARTITION BY DAY_OF_WEEK ORDER BY COUNT(*) DESC) AS rank_val
+        FROM flights
+        WHERE DEPARTURE_DELAY > 0
+        GROUP BY DAY_OF_WEEK, AIRLINE
+    ) t
+) t2
+WHERE rank_val <= 10
+ORDER BY day_of_week, rank_val 
+limit 10;
+
+
+-- r)	Create a view for client to show Top 10 airlines with highest Delay.
+CREATE VIEW top_10_airlines_delay AS
+	SELECT airline, AVG(arrival_delay) AS avg_delay
+	FROM flights
+	WHERE arrival_delay > 0
+	GROUP BY airline
+	ORDER BY avg_delay DESC
+	LIMIT 10;
+select * from top_10_airlines_delay;
+
+-- s)	Create a new column named ‘Delay_Comaprison’ 
+-- showing if flights making higher or lower than average flight delay.
+ALTER TABLE flights ADD Delay_Comparison VARCHAR(10);
+set sql_safe_updates=0;
+
+UPDATE flights
+SET Delay_Comparison = IF(Arrival_Delay > avg_delay, 'higher', 'lower')
+WHERE ID IN (
+  SELECT ID
+  FROM (
+    SELECT ID, Arrival_Delay, (SELECT AVG(Arrival_Delay) FROM flights) AS avg_delay
+    FROM flights
+  ) t
+);
+
