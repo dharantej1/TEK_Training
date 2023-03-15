@@ -1,0 +1,79 @@
+====== Big Data Overview ======
+- Data that has high volume, variety, velocity, veracity and value
+- examples: manufacturing, 
+	    customers, 
+	    technology, 
+	    banking, 
+	    healthcare, 
+	    energy
+
+- Structured Data: Data will be following some format, with data arranged in the form of tables
+
+- Semi-Structured: Data will have some format but there is no common format
+-- json: key, value pairs
+-- xml: tags
+-- csv: comma separated values
+-- big data file formats: parquet, AVRO, ORC
+
+- Unstructured: there is no structured format
+-- video, audio, images, flatfiles, signals, pdf, worddocs
+
+- Quasi-Structured Data: Clickstream data
+
+====== Big Data Analytics Pipeline ======
+1. Data Ingestion: migrate data from one stored location to another location
+
+Tool 1: 
+	- SQOOP: (SQL to Hadoop) migrate data from structured storage to Hadoop (HDFS - Hadoop Distributed File System)
+	- bidirectional tool
+			
+					(Storage of Hadoop)
+		import->
+	[DBMS]	<====>	[SQL]	<====>	[HDFS]	(Data Lake)
+	      <-export
+	(source)			(destination)
+    - MySQL, 
+    - SQlite, 
+    - OracleDB
+
+====== Components of HADOOP Ecosystem ======
+
+Tool 2:
+	- flume: in flume.comfig file we configure 
+				- source (IP Address)
+				- sink (HDFS - Destination)
+				- channel 
+	- ingestion of stream data from source (twitter, ip address, or any live stream)
+	- 
+
+2. Data Collection Layer: Temporary storage within the tools like KAFKA during the data ingestion from another sources
+
+3. Data Storage Layer: Permanent storage layer
+			- they contain: 
+				- S3
+				- HDFS
+				- Gluster FS(File System)
+
+4. Data Processing Layer: This contains:
+				- Batch Processing (like SQL Queries) (Hive, SPARK, PIG - use map-reduce methodologies)
+				- Stream Processing (data generated from live source like SPARK)
+				- Hybrid Processing
+
+5. Data Query Layer: SPARK SQL, Presto, Amazon REDSHIFT, HIVE
+			
+6. Analytics Engine: this contains:
+				- Statistical Analysis
+				- Semantic Analysis
+				- Predictive Modeling
+				- Text Analysis
+				(we do these analysis with the help of few programming languages like:
+					- Python
+					- Java
+					- Scala
+					- MLlib (provided by SPARK)
+				)
+
+7. Data Visualization Layer: Real-time Dashboard like
+				- powerBI (Azure)
+				- Tableau
+				
