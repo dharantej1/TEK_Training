@@ -1,0 +1,28 @@
+====== Normalization ======
+- Database normalization is a database schema design technique, by which an existing schema is modified to 
+- minimize redundancy and dependency of data.
+- normalization is used to reduce the data redundancy
+
+====== Anomalies in Normalization: ======
+- - Insertion anomaly
+- - Updation anamoly
+- - Deletion anamoly
+
+====== Normal Forms ======
+1. 1NF
+2. 2NF
+3. 3NF
+4. BCNF
+
+1. 1NF: - every attribute is a single valued attribute (or) doesnot contain multivalued attributes (or) composite attributes
+	- every attribute must be atomic
+
+2. 2NF: - has to follow 1NF
+	- there should be no partial dependencies (which means that there should not be two primary keys)
+
+3. 3NF: - has to follow 2NF
+	- should not have transitive dependency (A->B, B->C then A->C must not be present in the tables which happens to be transitive realtion) 
+
+4. BCNF: - advanced version of 3NF
+	 - must be in the 3rd NF 
+	 - for every non trivial functional dependency X->Y, X is the super key of the table. that means X cant be a non prime attribute and Y is the prime attribute

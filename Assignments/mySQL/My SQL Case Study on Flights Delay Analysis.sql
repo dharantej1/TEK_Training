@@ -199,3 +199,44 @@ WHERE airline NOT IN ('AK', 'HI', 'PR', 'VI')
 GROUP BY airline 
 HAVING total_flights > 10 
 ORDER BY on_time_weekday_percentage DESC;
+
+-- v)	When is the best time of day/day of week/time of a year to fly with minimum delays?
+SELECT 
+    day_of_week, month, AVG(departure_delay) AS avg_delay 
+FROM flights 
+WHERE departure_delay > 0 
+GROUP BY day_of_week, month
+ORDER BY avg_delay ASC 
+LIMIT 1;
+
+-- w)	Suggest reasons of airlines delays and suggest, build solutions for it.
+-- The suggestion is: 
+SELECT 
+    origin_airport, destination_airport, airline, 
+    AVG(departure_delay) AS avg_dep_delay, 
+    AVG(arrival_delay) AS avg_arr_delay, 
+    COUNT(*) AS num_delays 
+FROM flights 
+WHERE departure_delay > 0 AND arrival_delay > 0 
+GROUP BY origin_airport, destination_airport, airline 
+HAVING num_delays > 2
+ORDER BY num_delays desc;
+
+-- x)	Create a stored procedure to find weeks with maximum flights delays count
+DELIMITER //
+CREATE PROCEDURE find_max_delay_weeks()
+BEGIN
+    SELECT day, day_of_week, COUNT(*) AS num_delays
+    FROM flights
+    WHERE DEPARTURE_DELAY > 0
+    GROUP BY day, day_of_week
+    HAVING num_delays = (SELECT MAX(delay_count) FROM (
+                            SELECT COUNT(*) AS delay_count
+                            FROM flights
+                            WHERE DEPARTURE_DELAY > 0
+                            GROUP BY WEEK(day)
+                        ) t)
+    ORDER BY day_of_week;
+END //
+DELIMITER ;
+call find_max_delay_weeks();
