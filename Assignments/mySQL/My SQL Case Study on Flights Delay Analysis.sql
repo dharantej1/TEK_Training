@@ -163,13 +163,39 @@ select * from top_10_airlines_delay;
 ALTER TABLE flights ADD Delay_Comparison VARCHAR(10);
 set sql_safe_updates=0;
 
+SET @avg_delay := (SELECT AVG(Departure_Delay + Arrival_Delay) FROM flights);
 UPDATE flights
-SET Delay_Comparison = IF(Arrival_Delay > avg_delay, 'higher', 'lower')
-WHERE ID IN (
-  SELECT ID
-  FROM (
-    SELECT ID, Arrival_Delay, (SELECT AVG(Arrival_Delay) FROM flights) AS avg_delay
-    FROM flights
-  ) t
-);
+SET Delay_Comparison = IF((Departure_Delay + Arrival_Delay) > @avg_delay, 'Higher', 'Lower');
+select * from flights;
 
+-- t)	Finding AIRLINES with its total flight count, total number of flights 
+-- arrival delayed by more than 30 Minutes, % of such flights delayed by more than
+-- 30 minutes when it is not Weekends with minimum count of flights from Airlines by 
+-- more than 10. Also Exclude some of Airlines 'AK', 'HI', 'PR', 'VI' and arrange output 
+-- in descending order by % of such count of flights. 
+SELECT 
+    AIRLINE, COUNT(*) AS total_flights, 
+    SUM(CASE WHEN ARRIVAL_DELAY > 30 THEN 1 ELSE 0 END) AS delayed_flights, 
+    ROUND(100 * SUM(CASE WHEN ARRIVAL_DELAY > 30 THEN 1 ELSE 0 END) / NULLIF(COUNT(CASE WHEN DAY_OF_WEEK NOT IN (1, 7) THEN 1 ELSE NULL END), 0), 2) AS pct_delayed_not_weekends
+FROM flights
+WHERE AIRLINE NOT IN ('AK', 'HI', 'PR', 'VI')
+GROUP BY AIRLINE
+HAVING COUNT(*) > 10
+ORDER BY pct_delayed_not_weekends DESC;
+
+-- u)	Finding AIRLINES with its total flight count with total number of flights 
+-- departure delayed by less than 30 Minutes, % of such flights delayed by less than 
+-- 30 minutes when it is Weekends with minimum count of flights from Airlines by more than 10. 
+-- Also Exclude some of Airlines 'AK', 'HI', 'PR', 'VI' and arrange output in 
+-- descending order by % of such count of flights. 
+SELECT 
+    airline, 
+    COUNT(*) AS total_flights, 
+    SUM(CASE WHEN DEPARTURE_DELAY < 30 THEN 1 ELSE 0 END) AS on_time_flights, 
+    ROUND(SUM(CASE WHEN DAY_OF_WEEK NOT IN (1,7) AND DEPARTURE_DELAY < 30 THEN 1 ELSE 0 END) / 
+          COUNT(*) * 100, 2) AS on_time_weekday_percentage
+FROM flights 
+WHERE airline NOT IN ('AK', 'HI', 'PR', 'VI') 
+GROUP BY airline 
+HAVING total_flights > 10 
+ORDER BY on_time_weekday_percentage DESC;
