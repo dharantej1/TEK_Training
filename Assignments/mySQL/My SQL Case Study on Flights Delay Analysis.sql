@@ -210,7 +210,8 @@ ORDER BY avg_delay ASC
 LIMIT 1;
 
 -- w)	Suggest reasons of airlines delays and suggest, build solutions for it.
--- The suggestion is: 
+-- The suggestion is: if the airlines decreases the taxing time the delays can be reduced for the flights
+-- which might effect the reputation of the airlines on the long run.
 SELECT 
     origin_airport, destination_airport, airline, 
     AVG(departure_delay) AS avg_dep_delay, 
