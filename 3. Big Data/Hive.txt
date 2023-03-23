@@ -1,0 +1,69 @@
+====== HIVE ======
+- hive is a data warehousing infrastructure based on Apache Hadoop.
+- it has massive scale out and fault tolerance capabilities for data storage and processing and commodity hardware
+- enables easy data summarization 
+- adhoc quering and analyses large amounts of data
+- provides SQL like which enables users to do adhoc querying, summarization and data analysing easily
+
+- HIVE is designed by FACEBOOK and later became open-source
+- HIVE translates the hive queries to Map-Reduce Programs
+- Apache HIVE features provides HIVE Query Language(HQL)
+
+====== HIVE - System Architecture and Components of HIVE ======
+ -------------------------------------------------------
+|			|	      |        |	|
+|			|	      |  JDBC  |  ODBC  |
+|Command Line Interface	|Web Interface|________|________|
+|			|	      |	 		|
+|			|	      |	 Thrift Server	|
+|_______________________|_____________|_________________|	 ---------
+|			Driver				|	|	  |
+|	   (compiler, optimiser, executor)	    ----|------>|Metastore|
+|_______________________________________________________|	|_________|
+			   |
+			   |
+			   |
+ -------------------------------------------------------
+|		HADOOP (Map Reduce + HDFS)		|
+|_______________________________________________________|
+
+
+
+- HIVE tool is use to run Adhoc Queries almost similar to MySQL 
+- HIVE uses a default location to store files "/user/hive/warehouse/" (This location is used to store all the DBs and tables.
+								       This location can be accessed by other Data Processing Tools - Ex: SPARK SQL)
+
+- HIVE -
+	|
+	- 1. HIVE CLI (Command Line Interface)
+	|
+	- 2. Beeline (CLI) -> Multiple Instances [Beeline needs HIVE Server-2]
+	|
+	- 3. ".hql" file can be created
+	|
+	- 4. Web Editor can be used (Ex: HUE) -> HUE requires ClouderVM which is harder to use(Need more resources for running)
+
+- HIVE Queries will run as a Map-Reduce Job (Mapper -> Shuffler -> Sorter -> Reducer)
+
+
+	user1 --->
+			HIVE [runjar] ---> 	Driver
+	user2 --->				  |
+					       compiler --------> - (DAG - Directed Acyclic Graph) - (Flow of execution - {Map+Reduce Job})
+						  |		  - Check Errors (Syntax Error)
+						  |		  - Flow execution will be created
+						  |
+					       Optimiser -------> select -> where -> group by -> limit [DAG]	  
+						  |		  - Query optimization
+						  |
+					       Executor --------> - Executes the task produced by the compiler in proper dependency order
+								  - interacts with the underlying hadoop interface to ensure perfect sync with the hadoop services
+
+====== HIVE Server-2 Architecture ======
+- Architecture Diagram Link - [ https://clouderablog.wpenginepowered.com/wp-content/uploads/2019/08/hiveserver1.png ]
+- enables clients to execute queries against the hive
+- it allows multiple clients to submit requests 
+
+- METASTORE - stores the system catalog and meta data about the table, columns, partitions, etc
+	    - stored in RDBMS and APACHE uses by default DERBY database, but its not compulsory its optional and can add any JDBC database like MySQL
+	    - metadata client: metastore_db (home directory)

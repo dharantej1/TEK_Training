@@ -1,0 +1,264 @@
+Give Root Previlage:
+--------------------
+sudo visudo
+hadoop ALL=(ALL:ALL)ALL
+
+Dowload Java 1.8
+
+Download Hadoop
+
+wget http://redrockdigimark.com/apachemirror/hadoop/common/hadoop-2.7.5/hadoop-2.7.5.tar.gz 
+wget link jdk 1.8
+
+Move Java Tar file to /usr/local
+sudo mv jdk1.8 /usr/local/
+Untar it to location
+Move Java1.8 to java
+Move Hadoop version to Hadoop
+------------------------------------------
+cd /usr/local
+sudo tar xvzf filename
+sudo mv jdk_1.8_bin java
+sudo mv hadoop_2.7.5_bin hadoop
+---------------------------------------------
+Once it is completed move to home dir hduser
+cd 
+
+java environmental setup
+------------------------
+sudo update-alternatives --install "/usr/bin/java" "java"  "/usr/local/java/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac"  "/usr/local/java/bin/javac" 1
+sudo update-alternatives --install "/usr/bin/javaws" "javaws"  "/usr/local/java/bin/javaws" 1 
+sudo update-alternatives --set java /usr/local/java/bin/java
+sudo update-alternatives --set javac /usr/local/java/bin/javac
+sudo update-alternatives --set javaws /usr/local/java/bin/javaws
+
+verify it by command
+--------------------
+java -version
+
+
+install ssh:
+-------------
+Hadoop services requires SSH access to manage i.e. remote machine plus your local machine if you want to use hadoop on it.For single node setup of hadoop we need to configure SSH access to localhost for the hduser we created.
+
+SSH LOCALHOST IS BUSY @ PORT 22
+-------------------------------
+Remove SSH:
+-----------
+sudo apt-get remove openssh-server
+sudo apt-get remove openssh-client
+
+Install SSH:
+------------
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo apt-get install openssh-client
+sudo ufw allow 22
+sudo ssh restart
+
+error: port 22 is busy:
+-----------------------
+sudo systemctl restart ssh
+sudo apt-get install ssh
+sudo apt-get install rsync
+
+localhost check host status:
+----------------------------
+sudo nano /etc/hosts
+
+Generate Keys for secure communication:
+---------------------------------------
+ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+
+
+ssh-keygen -t rsa
+Press enter for each line:
+-------------------------
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod og-wx ~/.ssh/authorized_keys 
+sudo apt-get update
+
+Start SSH:
+----------
+sudo /etc/init.d/ssh restart
+
+ssh localhost
+exit from localhost
+
+setup IPV6 off:
+---------------
+Hadoop & IPV6 do not agree onthe meaning of address 0.0.0.0 so edit the file underneath
+sudo nano /etc/sysctl.conf
+
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+
+For checking IPV6 is disabled or not:
+------------------------------------- 
+cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+
+HADOOP INSTALLATION:
+--------------------
+sudo tar xvzf hadoop-version
+sudo mv hadoop-version hadoop
+sudo chown -R hduser:hadoop /usr/local/hadoop
+sudo chmod -R 777 /usr/local/hadoop
+
+sudo nano .bashrc
+
+Edit .bashrc:
+-------------
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_PREFIX=/usr/local/hadoop
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+export HADOOP_MAPRED_HOME=/usr/local/hadoop
+export HADOOP_COMMON_HOME=/usr/local/hadoop
+export HADOOP_HDFS_HOME=/usr/local/hadoop
+export YARN_HOME=/usr/local/hadoop
+
+#Hadoop Native Path:
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_PREFIX/lib"
+
+export JAVA_HOME=/usr/local/java
+export PATH=$PATH:/usr/local/java/bin
+export PATH=$PATH:/usr/local/hadoop/bin
+export PATH=$PATH:/usr/local/hadoop/sbin
+
+command: 
+source ~/.bashrc
+
+cd /usr/local/hadoop/etc/hadoop
+
+hadoop-env.sh
+----------------------------------------
+open file
+---------
+sudo nano hadoop-env.sh
+
+In Hadoop, By default Logging level will be determined by logging configuration 
+variable HADOOP_ROOT_LOGGER in hadoop-env.sh file or by hadoop.root.logger 
+property in log4j.properties file.
+
+Default logging configuration is:
+---------------------------------
+export HADOOP_ROOT_LOGGER = "INFO,console"
+hadoop.root.logger=INFO,console
+
+i.e. logging level is INFO and logging destination is console.
+
+export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
+export JAVA_HOME=/usr/local/java
+export HADOOP_HOME_WARN_SUPPRESS="TRUE"
+export HADOOP_ROOT_LOGGER="WARN,DRFA"
+
+
+Create a Temp Directory which will be used as base location for DFS
+-------------------------------------------------------------------
+sudo mkdir -p /app/hadoop/tmp
+sudo chown -R spark:spark /app/hadoop/tmp
+sudo chmod -R 777 /app/hadoop/tmp
+
+sudo nano yarn-site.xml
+
+yarn-site.xml
+----------------------------------------
+<property>
+<name>yarn.nodemanager.aux-services</name>
+<value>mapreduce_shuffle</value>
+</property>
+<property>
+<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+
+
+hdfs-site.xml
+----------------------------------------
+<property>
+<name>dfs.replication</name>
+<value>1</value>
+</property>
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>file:/usr/local/hadoop/yarn_data/hdfs/namenode</value>
+</property>
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>file:/usr/local/hadoop/yarn_data/hdfs/datanode</value>
+</property>
+
+
+core-site.xml
+----------------------------------------
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/app/hadoop/tmp</value>
+</property>
+<property>
+<name>fs.default.name</name>
+<value>hdfs://localhost:9000</value>
+</property>
+
+
+mapred-site.xml(0.0.0.0:1002j1234560)
+----------------------------------------
+<property>
+<name>mapred.framework.name</name>
+<value>yarn</value>
+</property>
+<property>
+<name>mapreduce.jobhistory.address</name>
+<value>localhost:10020</value>
+</property>
+-----------------------------------------
+
+Create Directory where hadoop will store its work and give good permission to it. 
+
+sudo mkdir -p /usr/local/hadoop/yarn_data/hdfs/namenode
+sudo mkdir -p /usr/local/hadoop/yarn_data/hdfs/datanode
+
+sudo chmod -R 777 /usr/local/hadoop/yarn_data/hdfs/namenode
+sudo chmod -R 777 /usr/local/hadoop/yarn_data/hdfs/datanode
+
+sudo chown -R hadoop:hadoop /usr/local/hadoop/yarn_data/hdfs/namenode
+sudo chown -R hadoop:hadoop /usr/local/hadoop/yarn_data/hdfs/datanode
+
+sudo 
+--------------------------------------------
+
+sudo service hadoop-hdfs-datanode start
+
+sudo service hadoop-hdfs-namenode start 
+
+------------------------------------------------------------------
+
+
+http://apache.claz.org/hadoop/common/hadoop-2.7.1/
+--------------------------------------------------------------------------------------------------
+sudo .bashrc
+
+PROBLEM: NameNode -format
+rm -Rf /usr/local/hadoop/tmp
+hadoop namenode -format
+----------------------------------------------------------------------------------------------------
+wiki.apache.org/hadoop/ConnectionRefused
+
+telnet localhost portnumber
+
+---------------------------------------------------------------------------------------------------
+
+
+HADOOP START
+------------
+hdfs namenode -format
+start-dfs.sh
+start-yarn.sh
+jps
+
+
+
+ 
