@@ -29,3 +29,12 @@ lines terminated by "\n";
 insert overwrite table partition_table
 partition(country)
 select * from emptable;
+
+
+-- 5. RUN QUERY
+-- -- checking whether which query is faster from one another (normal query VS partitioning one
+)
+select avg(age) from emptable where country="India";
+
+select avg(age) from partition_table where country="India";
+
