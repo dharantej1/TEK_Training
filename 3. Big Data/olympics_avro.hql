@@ -44,10 +44,31 @@ describe formatted olympics_avro;
 insert overwrite table olympics_avro select * from olympics limit 100;
 
 
+-- 4. Create avro table with null values
+drop table if exists olympics_avro_null;
+create external table if not exists olympics_avro_null
+row format SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe'
+STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat'
+OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
+tblproperties('avro.schema.literal'='{
+	"name":"olympics_schema",
+	"type":"record",
+	"fields":[
+		{"name":"athlete", "type":["string","null"],"default":"null"},
+		{"name":"age", "type":["int","null"],"default":0},
+                {"name":"country", "type":["string","null"],"default":"null"},
+                {"name":"year", "type":["int","null"],"default":0},
+                {"name":"dateofevent", "type":["string","null"],"default":"null"},
+                {"name":"sport", "type":["string","null"],"default":"null"},
+                {"name":"gold", "type":["int","null"],"default":0},
+                {"name":"silver", "type":["int","null"],"default":0},
+                {"name":"bronze", "type":["int","null"],"default":0},
+                {"name":"total", "type":["int","null"],"default":0}
+	]
+}');
 
 
+-- 3. Insert data from External Table to Avro Table
+insert overwrite table olympics_avro_null select * from olympics;
 
-
-
-
-
+describe formatted olympics_avro_null;
