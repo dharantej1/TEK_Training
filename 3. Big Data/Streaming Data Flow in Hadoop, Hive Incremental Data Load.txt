@@ -1,0 +1,77 @@
+====== Work Flow of Data in HDFS ======
+Have a read: https://hadoop.apache.org/docs/r3.3.5/index.html
+
+																							    +---> [Structured Streaming]
+																							    |
+																							    |
+												+-----------------------------------------------------------------> [Spark Streaming] ------+---> [Spark MLlib]                                                
+												|
+												|
+		[SQL]								      +---> [Real Time] ---> [HBase (NoSQL)]
+		[OLTP]								      | 		
+		[Cloud Mainframes]			[Data Ingestion Layer] -------+
+		[XML External App]			(Flume/ Sqoop/ Kafka)	      |	
+		[Web Server (Access and Error Log)] 				      +---> [HDFS] ---> [ETL (Hive)] ---> [MetastoreDB (SQL/ Derby/ Oracle)]
+											       ^
+											       |
+											       |
+											      \/
+										     +---------+----------+	
+										     |	       |          |
+										     |	       |          |
+										     |	       |          |
+										   (Job1)    (Job2)     (Job3)	
+										       {BATCH PROCESSING}
+
+						      \_________________________________________________HADOOP________________________________________________/
+													  |
+													  |
+													  |
+													  |
+													  \/
+										  [Reporting Database (MongoDB, DynamoDB, RDBMS, Cloud)]	
+													  |
+													  |
+													  |
+													  |
+													  \/	
+										   [Visualization Layer (Reporting Tool, Visualization)]				
+												(PowerBI, Tableau)
+
+
+
+====== Hive Incremental Data Load ======
+
+
+
+
+				[MySQL (Data is getting updated)		[SQOOP Job]
+				 Example: existing users details	--->   (Incremental)	--->	HDFS	--->	Hive (Schema)			--->	HiveQL
+				 are getting updated and new 						             (Schema stores in metastoreDB)	     (Map-Reduce Job)
+				 users are added]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
