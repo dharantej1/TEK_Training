@@ -1,0 +1,74 @@
+There are 13 Codd Rules from 0 -12 which define which database is relational and which is not
+https://www.tutorialspoint.com/e-f-codd-s-12-rules-for-rdbms
+
+			DBMS					|		RDBMS
+_____________________________________________________________________________________________________
+DBMS is a stand-alone - works only on stand alone environments		RDBMS is a logical one.
+Its not in the network, it cant be shared				
+Its not a client server architecture, because it cant be shared
+Its not involved with the project development process
+not safe and secure	
+
+Data model is required for understanding the data. 
+Data model is always open-type
+
+Data Base works on Normalization 
+Data Warehouse works on De-Normalization
+
+Never say Data warehouse has a parent-child dependency
+
+Data warehouse is like - You name it, You do it. Its also flexible 
+But this is not the same for the Database
+
+Data mart is the smaller version of the Data warehouse (for exmaple we can make a separate data waehouse for each department of the company)
+Data marts can be connected (combined) 
+
+-- -- -- -- CONFIRM DIMENSION is a dimension that connects the data marts 
+
+====== IMPORTANT TOPICS ======
+Meta data 
+ODS - operational data store - based on the operational system (current business)
+staging
+Data mart
+
+====== ANATOMY OF QUERY ======
+
+select * from table_name;
+
+select - command
+from select to from - select list
+
+
+where - filtering process
+
+
+------
+Metadata is called as Repository in Informatica
+
+Informatica is purely fromt end
+So the informatica alone is incapable of storing the data
+It needs the support of RDBMS for that use
+
+rep file in the informatica contains the script files about the tables loaded into it
+
+
+SCHEMA is the collection of related objects stored in a specific account
+
+Repository manager and the Administrator manager are meant only for the Admin to access.
+
+We need 	1. Source
+		2. Target 
+		3. Rep (Informatica Repository(Meta Data of the Informatica))
+
+Informatica has one prob:	Unless it completes the job, it will not show whats the problem in the job
+
+
+
+Informatica Intelligent Cloud Services is the cloud version of Informatica
+
+Data model is moved to Dimension model by the system architect, which means star schema (fact and dimension tables are already created by the architect)
+One fact table and multiple dimension tables can be created (max of 15 dimension tables can be ok!, more than that it creates the performance issues!)
+
+we need to import the data from the DataBase to the Informatica as the Informatica is the 
+
+
