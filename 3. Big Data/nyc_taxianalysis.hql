@@ -117,11 +117,11 @@ use nycdb;
 -- SELECT
 --     AVG(fare_amount) AS avg_fare_charge,
 --     CASE
---         WHEN MONTH(tpep_pickup_timestamp) = 11 THEN 'November'
---         WHEN MONTH(tpep_pickup_timestamp) = 12 THEN 'December'
+--         WHEN MONTH(tpep_pickup_timestamp) = 1 THEN 'January'
+--         WHEN MONTH(tpep_pickup_timestamp) = 3 THEN 'March'
 --     END AS month
 -- FROM nyc_taxifare
--- WHERE MONTH(tpep_pickup_timestamp) IN (11, 12)
+-- WHERE MONTH(tpep_pickup_timestamp) IN (1, 3)
 -- GROUP BY MONTH(tpep_pickup_timestamp);
 
 
@@ -193,45 +193,26 @@ set hive.exec.dynamic.partition.mode=nonstrict;
 set hive.enforce.bucketing = true;
 
 
-DROP TABLE IF EXISTS tip_buckets;
-CREATE TABLE IF NOT EXISTS tip_buckets (
-  tip_paid FLOAT
-)
-CLUSTERED BY (tip_paid)
-INTO 5 BUCKETS;
 
-INSERT INTO TABLE tip_buckets
-SELECT tip_amount FROM nyc_taxifare;
 
-SELECT bucket, 
-       COUNT(*) as count, 
-       ROUND(COUNT(*) / total * 100, 2) as percentage_share
+-- x)
+SELECT 
+  month, 
+  AVG(trip_distance/trip_time_in_secs) AS avg_speed
 FROM (
-  SELECT CASE 
-           WHEN tip_paid < 5 THEN '0-5' 
-           WHEN tip_paid >= 5 AND tip_paid < 10 THEN '5-10' 
-           WHEN tip_paid >= 10 AND tip_paid < 15 THEN '10-15' 
-           WHEN tip_paid >= 15 AND tip_paid < 20 THEN '15-20' 
-           ELSE '>=20'
-         END as bucket, 
-         SUM(1) as total 
-  FROM tip_buckets 
-  GROUP BY 
-         CASE 
-           WHEN tip_paid < 5 THEN '0-5' 
-           WHEN tip_paid >= 5 AND tip_paid < 10 THEN '5-10' 
-           WHEN tip_paid >= 10 AND tip_paid < 15 THEN '10-15' 
-           WHEN tip_paid >= 15 AND tip_paid < 20 THEN '15-20' 
-           ELSE '>=20'
-         END
-) subquery
-GROUP BY bucket;
-
-
-
-
-
-
+  SELECT 
+    CASE 
+      WHEN month(tpep_pickup_timestamp) = 11 THEN 'November' 
+      WHEN month(tpep_pickup_timestamp) = 12 THEN 'December' 
+    END AS month, 
+    trip_distance, 
+    trip_time_in_secs
+  FROM nyc_taxifare
+  WHERE month(tpep_pickup_timestamp) IN (11, 12)
+    AND trip_distance > 0 
+    AND trip_time_in_secs > 0
+  ) AS subquery
+GROUP BY month;
 
 
 
