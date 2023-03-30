@@ -1,4 +1,6 @@
 ====== Work Flow of Data in HDFS ======
+Refer 29th March.pdf for detailed notes on this
+
 Have a read: https://hadoop.apache.org/docs/r3.3.5/index.html
 
 																							    +---> [Structured Streaming]
