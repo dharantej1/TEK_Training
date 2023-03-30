@@ -117,11 +117,11 @@ use nycdb;
 -- SELECT
 --     AVG(fare_amount) AS avg_fare_charge,
 --     CASE
---         WHEN MONTH(tpep_pickup_timestamp) = 11 THEN 'November'
---         WHEN MONTH(tpep_pickup_timestamp) = 12 THEN 'December'
+--         WHEN MONTH(tpep_pickup_timestamp) = 1 THEN 'January'
+--         WHEN MONTH(tpep_pickup_timestamp) = 3 THEN 'March'
 --     END AS month
 -- FROM nyc_taxifare
--- WHERE MONTH(tpep_pickup_timestamp) IN (11, 12)
+-- WHERE MONTH(tpep_pickup_timestamp) IN (1, 3)
 -- GROUP BY MONTH(tpep_pickup_timestamp);
 
 
@@ -187,60 +187,75 @@ use nycdb;
 -- w)
 
 -- set properties To Enable Dynamic Partitioning
-set hive.exec.dynamic.partition=true;
+-- set hive.exec.dynamic.partition=true;
 -- Allow hive to do dynamic partition
-set hive.exec.dynamic.partition.mode=nonstrict;
-set hive.enforce.bucketing = true;
+-- set hive.exec.dynamic.partition.mode=nonstrict;
+-- set hive.enforce.bucketing = true;
+
+-- drop table if exists bucket_nyc_taxifare;
+-- create external table if not exists bucket_nyc_taxifare
+--	(Vendor ID Int, tpep pickup datetime tinestano, tpep dropoff datetime timestamp, passenger count int, trip distance tnt, pickup 
+-- longitude double, pickup latitude double, Ratecode ID int, store and fwd flag varchar(10), dropoff longitude double, dropoff latitude 
+-- double, paynent type int, fare_amount double, extra double, nta_tax double, ttp_amount double, tolls amount double, Improvement surcharge 
+-- double, total amount double,ttp_grp varchar(20)) 
+-- clustered by (ttp_grp) into 5 buckets 
+-- row format delimited 
+-- fields terminated by "," 
+-- lines terminated by '\n'; 
+-- insert overwrite table bucket_nyc_taxtfare select from (select case when tip_amount and tip_amount <5 then "zerotofive" when tip_amount>5 -- and tip_amount <10 then "fivetoten" when tip_amount >10 and tip_amount <15 then "tentofive" when ttp_amount 15 and ttp amount <20 then 
+-- "fifteentotwenty when ttp_amount>20 then "morethantwenty end as ttp_grp from nyc taxtfare) as ti;
 
 
-DROP TABLE IF EXISTS tip_buckets;
-CREATE TABLE IF NOT EXISTS tip_buckets (
-  tip_paid FLOAT
-)
-CLUSTERED BY (tip_paid)
-INTO 5 BUCKETS;
 
-INSERT INTO TABLE tip_buckets
-SELECT tip_amount FROM nyc_taxifare;
-
-SELECT bucket, 
-       COUNT(*) as count, 
-       ROUND(COUNT(*) / total * 100, 2) as percentage_share
-FROM (
-  SELECT CASE 
-           WHEN tip_paid < 5 THEN '0-5' 
-           WHEN tip_paid >= 5 AND tip_paid < 10 THEN '5-10' 
-           WHEN tip_paid >= 10 AND tip_paid < 15 THEN '10-15' 
-           WHEN tip_paid >= 15 AND tip_paid < 20 THEN '15-20' 
-           ELSE '>=20'
-         END as bucket, 
-         SUM(1) as total 
-  FROM tip_buckets 
-  GROUP BY 
-         CASE 
-           WHEN tip_paid < 5 THEN '0-5' 
-           WHEN tip_paid >= 5 AND tip_paid < 10 THEN '5-10' 
-           WHEN tip_paid >= 10 AND tip_paid < 15 THEN '10-15' 
-           WHEN tip_paid >= 15 AND tip_paid < 20 THEN '15-20' 
-           ELSE '>=20'
-         END
-) subquery
-GROUP BY bucket;
+-- x)
+-- with tbl1 as(select sum(case when tpep_pickup_timestamp like '_____01%' then 1 else 0 end ) as no_of_jan,sum(case when 
+-- tpep_pickup_timestamp like '_____01%' then
+-- trip_distance/((unix_timestamp(tpep_dropoff_timestamp)-unix_timestamp(tpep_pickup_timestamp))/3600)
+-- else 0 end ) as sum_speed_of_jan,sum(case when tpep_pickup_timestamp like '_____03%' then 1 else 0 end ) as no_of_mar,sum(case when 
+-- tpep_pickup_timestamp like '_____03%' then
+-- trip_distance/((unix_timestamp(tpep_dropoff_timestamp)-unix_timestamp(tpep_pickup_timestamp))/3600)
+-- else 0 end ) as sum_speed_of_mar from nyc_taxifare where unix_timestamp(tpep_dropoff_timestamp)>unix_timestamp(tpep_pickup_timestamp))
+-- select sum_speed_of_jan/no_of_jan as Avg_jan,sum_speed_of_mar/no_of_mar as Avg_mar from tbl1;
 
 
 
 
+-- y)
+-- with tbl1 as(select count(*) as total,sum( trip_distance/((unix_timestamp(tpep_dropoff_timestamp)-unix_timestamp(tpep_pickup_timestamp))/
+-- 3600)) as sum_speed,
+-- sum(case when tpep_pickup_timestamp like '_____01_01%' then 1 else 0 end ) as no_of_jan1,sum(case when tpep_pickup_timestamp like
+-- '_____01_01%' then
+-- trip_distance/((unix_timestamp(tpep_dropoff_timestamp)-unix_timestamp(tpep_pickup_timestamp))/3600)
+-- else 0 end ) as sum_speed_of_jan1,sum(case when tpep_pickup_timestamp like '_____01_18%' then 1 else 0 end ) as no_of_jan16,sum(case when 
+-- tpep_pickup_timestamp like -- '_____01_18%' then
+-- trip_distance/((unix_timestamp(tpep_dropoff_timestamp)-unix_timestamp(tpep_pickup_timestamp))/3600)
+-- else 0 end ) as sum_speed_of_jan16
+-- from nyc_taxifare where unix_timestamp(tpep_dropoff_datetime)>unix_timestamp(tpep_pickup_timestamp))
+-- select total/sum_speed as total_avg ,sum_speed_of_jan1/no_of_jan1 as Avg_jan1,sum_speed_of_jan16/no_of_jan16 as Avg_jan16 from tbl1;
+-- select count(*) from nyc_taxifare where ;
 
 
+-- z)
+-- drop table if exists partition_table_nyc;
+-- set hive.exec.dynamic.partition=true;
+-- set hive.exec.dynamic.partition.mode=nonstrict;
 
+-- create external table if not exists partition_table_nyc(VendorID int, tpep_pickup_timestamp varchar(30), tpep_dropoff_timestamp varchar 
+-- (50),
+-- passenger_count int, trip_distance int,
+-- pickup_longitude double, pickup_latitude double,
+-- RatecodeID int, store_and_fwd_flag varchar(20), dropoff_longitude double, dropoff_latitude double, payment_type int, fare_amount double,
+-- extra double, mta_tax double,
+-- tip_amount double, tolls_amount double, improvement_surcharge double,total_amount double)
+-- partitioned by(total_charge varchar(20))
+-- row format delimited
+-- fields terminated by ','
+-- lines terminated by '\n';
 
-
-
-
-
-
-
-
+-- insert overwrite table partition_table_nyc
+-- partition(total_charge)
+-- select * from (select *,case when total_amount<0 then "Not Paid" when total_amount<25 then "Decent price" when total_amount<100 then "high -- price"
+-- else "Super High(Expensive)" end as total_charge from nyc_taxifare) subq
 
 
 
