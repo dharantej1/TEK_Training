@@ -64,7 +64,7 @@ Informatica has one prob:	Unless it completes the job, it will not show whats th
 
 
 
-Informatica Intelligent Cloud Services is the cloud version of Informatica
+Informatica Intelligent Cloud Services - IICS is the cloud version of Informatica
 
 Data model is moved to Dimension model by the system architect, which means star schema (fact and dimension tables are already created by the architect)
 One fact table and multiple dimension tables can be created (max of 15 dimension tables can be ok!, more than that it creates the performance issues!)
