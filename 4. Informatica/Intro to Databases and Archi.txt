@@ -36,7 +36,7 @@ Data mart
 select * from table_name;
 
 select - command
-from select to from - select list
+from "select" to "from" - select list
 
 
 where - filtering process
