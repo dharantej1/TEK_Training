@@ -1,3 +1,4 @@
+====== 30th March 2023 ======
 There are 13 Codd Rules from 0 -12 which define which database is relational and which is not
 https://www.tutorialspoint.com/e-f-codd-s-12-rules-for-rdbms
 
@@ -69,6 +70,81 @@ Informatica Intelligent Cloud Services - IICS is the cloud version of Informatic
 Data model is moved to Dimension model by the system architect, which means star schema (fact and dimension tables are already created by the architect)
 One fact table and multiple dimension tables can be created (max of 15 dimension tables can be ok!, more than that it creates the performance issues!)
 
-we need to import the data from the DataBase to the Informatica as the Informatica is the 
+we need to import the data from the DataBase to the Informatica as Informatica is only the front-end part
+
+
+====== 31st March 2023 ======
+Lifecycle product: we cant show the product in the middle of the process
+Data Base, Data Base is a lifecycle product but
+Python is not a lifecycle product
+
+Data Warehouse is also a RDBMS Package
+
+If you are using the terminology - fact and dimension - you are talking about data warehousing
+If you are using the terminology - tables - you are talking about the data base
+
+DSS - Decision Support System (used by the company to analyse the trends)
+Data warehouse is used by DSS 
+Day-to-Day transactions - Operational Systems
+
+Granularity/ Grain - tells you at what level the work has to be done
+			- if you want to do the analysis on hourly basis - Granuarity is Hours
+			- if you want to do the analysis on daily basis - Granularity is Days
+- This is time levely Granularity
+
+- One more Granularity is Region wise Granularity
+
+- Log files are generate if its client-server architecture
+
+- Foreign key tables are not unique
+
+    /----------------------------------------ETL for Data Warehousing------------------------------------\
+
+		
+		
+		Operational Systems							Decision Support
+
+       	    [RDBMS] [Mainframe] [Other]							[Data Warehouse]
+
+	- Transactional data				- aggregate data		- Aggregated data
+	- Optimized for transaction response time	- cleanse data			- Historical data
+	- current					- consolidate data
+	- normalized or de-normalized data		- de-normalize data
+							- apply business rules
+
+     \______________Extract________________/	      \_______Transform_______/	     \________Load________/
+
+
+
+====== Execution of SQL statements ======
+
+select statements triggers 3 processes: 	parsing ---> execution ---> fetching
+
+DML connands does only 2 processes: 		parsing ---> execution
+
+	parsing: it checks syntax, checks whether the table is yours or not, spell checks, authentications, authorizations
+	- all this process is validated with the metadata
+
+	fetching: process occurs with the help of implicit cursor (also explicit cursor exists)
+
+------ WorkFlow:
+
+1. Query
+
+2. Parsing with the help of metadata
+	synatx check , author, authen, obj ref, attri ref, col ref, spell checks
+
+3. Execution in the memory (cache, buffer)
+
+4. Fetching with the help of cursors
+
+
+
+Source Qualifier is the Native Data type of the informatica in the Mapping part of the Mapper
+
+
+
+
+
 
 
