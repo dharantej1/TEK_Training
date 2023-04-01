@@ -4,3 +4,5 @@
 2. MySQL
 
 3. BigData
+
+4. Informatica
