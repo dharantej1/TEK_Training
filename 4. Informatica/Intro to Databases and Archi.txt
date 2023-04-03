@@ -321,3 +321,5 @@ Source Qualifier is the Native Data type of the informatica in the Mapping part 
 
 
 - MAPPING: mapping is a set of instruction between source and target
+
+- Activities Done in the Class: Expression, Filter and Sequence Generator (these are the Transformers)
