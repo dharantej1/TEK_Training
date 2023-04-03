@@ -132,7 +132,7 @@ DML connands does only 2 processes: 		parsing ---> execution
 1. Query
 
 2. Parsing with the help of metadata
-	synatx check , author, authen, obj ref, attri ref, col ref, spell checks
+	syntax check , authorization, authentication, objects references, attributes references, column references, spell checks
 
 3. Execution in the memory (cache, buffer)
 
