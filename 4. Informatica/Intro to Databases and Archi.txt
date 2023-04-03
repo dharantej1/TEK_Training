@@ -300,6 +300,22 @@ Source Qualifier is the Native Data type of the informatica in the Mapping part 
                             +-----+
 
 
+------ Typical (Graphical) DWH Architecture ------
 
+- In ODS there is a concept of Snapshots which is similar to the functionality of GitHub Commit History
+- ODS is not necessary if the cleaning process is already done and the data is given
+
+       +-----------------+         +-----------------+         +-----------------+
+       |    Database     |         |   Data Snapshot |         |  Data Warehouse |
+       +-----------------+         +-----------------+         +-----------------+
+               |                           |                           	|
+               | Refresh Data Snapshot     |                           	|
+               |-------------------------->|                            |
+               |                           |  Load Data Snapshot        |
+               |                           |-------------------------->	|
+               |                           |                           	| 
+               |                           |   Load Data from Snapshot  |
+               |                           |-------------------------->	|
+               |                           |                           	|
 
 
