@@ -145,6 +145,161 @@ Source Qualifier is the Native Data type of the informatica in the Mapping part 
 
 
 
+====== 3rd April 2023 ======
+
+- data model is for data base
+- you get physical tables after getting the data into the logical design
+- data model refers to database
+- dimension model refers to data ware house
+- Inmon theory roff Kimball theory use these two theories for the designing the data warehouse
+
+-- The Kimball Design:
+----------------------------------------
+	1. select business process - awareness about the cost, revenue and sales
+	2. declare the grain - granularity (level of analysis what you expect from the client) (granularity might change)
+	3. choose dimension - when execution starts first we create the dimensions, not the facts
+	4. identify facts (metrics) - first phase of analysis happens on the facts
+
+- facts are the summarized information stored in the star schema under data mart
+	- a data mart can consist of one star schema or multiple star schema (constellation)
+	
+- dimensions are the descriptive in nature, which is a part of star schema.
+
+
+-- Interview Question:	Is the data coming directly coming from the database goes and sits in the data warehouse?
+-- Answer:	the dimension data should not have the redundant data which the data might have, so we should do the lookup transformation to the data 
+		(time dimension(date and time) will be the part of the lookup) the if there no matches with the desired target then it moves to the 
+		data warehouse
+
+- when ever you are using an aggregate information, that means there is redundant data in the database or data warehouse
+
+         +----------------------+
+         |   Data Extraction    |
+         +-----------+----------+
+                     |
+                     v
+         +----------------------+
+         |  Data Transformation |
+         +-----------+----------+
+                     |
+                     v
+         +----------------------+
+         | Dimension Table Load |
+         +-----------+----------+
+                     |
+                     v
+         +----------------------+
+         |    Fact Table Load   |
+         +----------------------+
+
+
+-- The Inmon Model (talks about the Enterprise Data Warehouse)
+-------------------------------------------------
+- Consists of all databases and information systems in organization (CIF - Corporate Information Factory)
+
+- Defines overall database environment as:
+	1. Operational
+	2. Atomic data warehouse
+	3. Departmental
+	4. Individual
+- The Warehouse is part of the bigger whole (CIF)
+
+
+
+-- Bill Inmon Model: Top-Down
+---------------------------------------
+- Recommends  big Centralized enterprise data warehouse where all available data from transaction systems are consolidated into....
+
+- a subject-oriented, integrated, time-variant and non-volatile collection of data into DSS... then data marts are built for analytic needs of depts
+
+- Uses ER model to organize the data in enterprise data warehouse
+
+- Inmon gives his opinion of Dependent data marts
+
+- More Complex, Expensive & Longer to Deliver
+
+
+-- Data warehouse is a multi-dimensional architecture (not physically, logically)
+-- Fact table is connected to a multiple dimensions (which means the fact table sees them in those number of ways or those number of prespectives)
+
+
+- BI contains many start-schemas of Facts and Dimensions and all the possible combinations can be collectively called as the Data Marts
+
+       +-------------+
+       |    BI       |
+       |             |
+       +-------------+
+               |
+               | contains
+               |
+       +-------------+
+       | Start-Schema|
+       | of Facts &  |
+       | Dimensions  |
+       +-------------+
+               |
+               | can be used to build
+               |
+       +-------------+
+       |  Data Marts |
+       +-------------+
+
+- Fact doesnot have any presence without the dimension table, so we build the dimension table first
+
+- Confirm Dimension: contains two Data Marts, which means it connects two different Data Marts based on the necessacity
+
+- SnowFlake schema is the extension of the dimension
+        +----------------+
+        |   Fact Table   |
+        |                |
+        |    (Measures)  |
+        +----------------+
+                |
+                | has
+                |
+        +----------------+
+        |  Dimension 1   |
+        |                |
+        |    (Attribute) |
+        +--------+-------+
+                 |
+                 | has
+                 |
+        +--------+-------+
+        |  Dimension 2   |
+        |                |
+        |    (Attribute) |
+        +----------------+
+
+
+- NOTE: We should not design too many SnowFlake schemas as it moves away from the sense of Data Warehousing, then its not a pure Data Warehousing.
+
+
+    +---------------------+         +-------------------------+
+    |   Data Mart 1       |         |    Data Mart 2          |
+    |                     |         |                         |
+    | +-----------------+ |         | +---------------------+ |
+    | | Star Schema 1   | |         | | Star Schema 2       | |
+    | +-----------------+ |         | +---------------------+ |
+    |         |           |         |         |               |
+    |         | has       |         |         | has           |
+    |         |           |         |         |               |
+    | +-----------------+ |         | +---------------------+ |
+    | | Confirm Dim     | |         | | Confirm Dim         | |
+    | +-----------------+ |         | +---------------------+ |
+    +---------------------+         +-------------------------+
+                         \           /
+                          \         /
+                           \       /
+                            +-----+
+                            | DM 3|
+                            |     |
+                            | +---+
+                            | | CD|
+                            | +---+
+                            +-----+
+
+
 
 
 
