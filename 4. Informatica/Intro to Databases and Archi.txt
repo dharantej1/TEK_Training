@@ -323,3 +323,17 @@ Source Qualifier is the Native Data type of the informatica in the Mapping part 
 - MAPPING: mapping is a set of instruction between source and target
 
 - Activities Done in the Class: Expression, Filter and Sequence Generator (these are the Transformers)
+
+
+====== 4th April 2023 ======
+
+- you dont have the date stored in the data warehouse - you dont get to know the granularity of the data if the date is provided to you in the datawarehouse
+- you can divide the date with the granularity you want to analyse
+- to define the granularity level we need to define the time dimension in the target 
+- GRANULARITY IS IDENTIFIED BASED ON THE REDUNDANCY FACTOR
+
+- redundant data is always heavy data and takes more time to get the job done
+
+- source qualifier is an active transformer (based on the use case)
+
+- Heterogenous data cant be directly linked to the source qualifier, so this uses the help of JOINER 
