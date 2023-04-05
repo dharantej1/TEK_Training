@@ -1,3 +1,15 @@
+ /$$$$$$ /$$   /$$ /$$$$$$$$ /$$$$$$  /$$$$$$$  /$$      /$$  /$$$$$$  /$$$$$$$$ /$$$$$$  /$$$$$$   /$$$$$$ 
+|_  $$_/| $$$ | $$| $$_____//$$__  $$| $$__  $$| $$$    /$$$ /$$__  $$|__  $$__/|_  $$_/ /$$__  $$ /$$__  $$
+  | $$  | $$$$| $$| $$     | $$  \ $$| $$  \ $$| $$$$  /$$$$| $$  \ $$   | $$     | $$  | $$  \__/| $$  \ $$
+  | $$  | $$ $$ $$| $$$$$  | $$  | $$| $$$$$$$/| $$ $$/$$ $$| $$$$$$$$   | $$     | $$  | $$      | $$$$$$$$
+  | $$  | $$  $$$$| $$__/  | $$  | $$| $$__  $$| $$  $$$| $$| $$__  $$   | $$     | $$  | $$      | $$__  $$
+  | $$  | $$\  $$$| $$     | $$  | $$| $$  \ $$| $$\  $ | $$| $$  | $$   | $$     | $$  | $$    $$| $$  | $$
+ /$$$$$$| $$ \  $$| $$     |  $$$$$$/| $$  | $$| $$ \/  | $$| $$  | $$   | $$    /$$$$$$|  $$$$$$/| $$  | $$
+|______/|__/  \__/|__/      \______/ |__/  |__/|__/     |__/|__/  |__/   |__/   |______/ \______/ |__/  |__/
+
+                                                                                                            
+
+
 ====== 30th March 2023 ======
 There are 13 Codd Rules from 0 -12 which define which database is relational and which is not
 https://www.tutorialspoint.com/e-f-codd-s-12-rules-for-rdbms
@@ -337,3 +349,97 @@ Source Qualifier is the Native Data type of the informatica in the Mapping part 
 - source qualifier is an active transformer (based on the use case)
 
 - Heterogenous data cant be directly linked to the source qualifier, so this uses the help of JOINER 
+
+References:
+	https://community.spiceworks.com/topic/2384558-normal-and-bulk-loads
+	https://stackoverflow.com/questions/49602089/creating-and-populating-the-time-dimension
+====== 5th April 2023 ======
+
+- LOOKUP Transformation:
+it can be a file, source qualifier or table
+	- LookUp table is the table which stores the predefined values, In Informatica, a lookup table is a table used to retrieve additional 
+	information from a database or flat file. It contains the information needed to perform a lookup on the source data during the data 
+	integration process. The lookup transformation in Informatica is used to retrieve the data associated with the source 
+	data based on a key column.
+
+	- The lookup table can be stored in a database, such as Oracle, SQL Server, or MySQL, or in a flat file, such as a CSV or Excel file. 
+	The location of the lookup table will depend on the specific data integration requirements and the availability of the data.
+
+	- lookup obj is the object which is created at the time of transformation
+
+
+- LOOKUP give only the boolean output values
+
+- Basically LOOKUP is a passive operation
+
+- Also lookup is a burden for the server because it has to look everything(present in the database) with everything(incoming from the source)
+
+- Lookup is of 2 (two) types:
+	- Connected 
+	- Unconnected (there in the mapping but not in the flow) - used for small amounts of data
+- dont take too much of data into the lookup it creates burden again on the server
+
+- joiner, lookup, router, sorter, rank - requires more cache memory
+
+- always put the first columns that are more redundant in the case of SORT tranformation for a specific column
+
+- unconnected lookup is not connected with the input.
+
+
+
+- for every process we need a cache, but the lookup process needs extra cache
+
+/----------------------------------- LOOKUP FUNCTIONALITY -----------------------------------\
+
+				[Lookup condition e.g
+				 ITEM_ID = IN_ITEM_ID
+				 PRICE <= IN_PRICE]
++-----------------------+   	+-----------------------+   	+-----------------------+
+|                       |   	|                       |   	|                       |
+|     Input Value       + --->	|  Lookup Transformation| --->  |      Output with   	|
+|                       |   	|                       |   	|      lookup values	|
++-----------------------+   	+-----------------------+   	+-----------------------+
+                                    	^      |
+                                    	|      | Input values
+                     	 Lookup values 	|      |
+                                    	|      v
+                                +-----------------------+
+                                |                       |
+                                |    Lookup Source      |
+                                |                       |
+                                +-----------------------+
+
+
+
+
+- Slowly chaining dimension is the important part of any ETL Tool (mainly the LOOKUP Functionality of the Informatica)
+- Slowly changing dimension (SCD) is a concept in data warehousing that refers to how dimensions change over time. 
+	A slowly changing dimension is a dimension that changes slowly, or infrequently, over time.
+
+- It is of three (3) types 
+
+	Type 1: OLTP system support
+	Type 2:     (History)	- Date support 
+				- Flag support
+				- Time support
+	Type 3: Data warehouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
