@@ -29,7 +29,7 @@ if __name__ == "__main__":
                          price="$3.99", course="Dessert", restaurant=restaurant1)
     session.add(menuItem3)
     session.commit()
-    menuItem4 = MenuItem(name="Sirloin Burger", description="Made with grade A beef",
+    menuItem4 = MenuItem(name="Sirloin Burger", description="Made with grade A mutton",
                          price="$7.99", course="Entree", restaurant=restaurant1)
     session.add(menuItem4)
     session.commit()
@@ -69,7 +69,7 @@ if __name__ == "__main__":
                          price="12", course="Entree", restaurant=restaurant2)
     session.add(menuItem4)
     session.commit()
-    menuItem5 = MenuItem(name="Beef Noodle Soup", description="A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.",
+    menuItem5 = MenuItem(name="mutton Noodle Soup", description="A Chinese noodle soup made of stewed or red braised mutton, mutton broth, vegetables and Chinese noodles.",
                          price="14", course="Entree", restaurant=restaurant2)
     session.add(menuItem5)
     session.commit()
