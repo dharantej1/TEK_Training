@@ -6,3 +6,5 @@
 3. BigData
 
 4. Informatica
+
+5. Data Analysis
