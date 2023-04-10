@@ -22,3 +22,77 @@
 
 ====== 7th April 2023 ======
 - Matplotlib
+
+- pandas dataframe analysis
+
+====== 10th April 2023 ======
+- PySpark
+
+- usage of memory instead of indisk jobs 
+
+- we want to overcome the disadvantages of HDFS so we use SPARK instead of HDFS
+
+- Spark is written in SCALA and python
+
+-- 1. polyglot in nature (supports multiple programming languages - SCALA, Java, python, R)
+-- 2. does in memory processing
+
+- SPARK is a Unifies analytics in memory processing engine
+
+- its capable of batch processing and real time processing
+
+- SPARK = RDD + Interface
+    - support RDD-based processing interface
+
+
+- Map-Reduce works on Processing layer called as YARN (which was introduced to reduce the burden on the HDFS)
+- Yarn is a cluster manager  (resource manager)
+
+- Datastructure in spark evolution : RDDs -> DataFrame -> Datasets
+
+- Pyspark dataframes can be converted to pandas DataFrames
+- PyArrow is a cross-platform datastructure!
+
+
+In Schema on read : awareness of data types is not present
+In Schema on write : awareness of data types must be present
+
+Schema on Read:
+	- The schema is defined when data is read and interpreted by an application.
+	- Data is stored in a raw, unprocessed format.
+	- Provides flexibility in data analysis and processing, as data can be interpreted and analyzed in different ways.
+	- May be slower to process data due to the need to interpret and process data during read operations.
+	- Data quality issues may be discovered during read operations and may need to be corrected or cleaned up.
+	- Requires strong data governance practices to ensure data is interpreted correctly and consistently.
+
+Schema on Write:
+	- The schema is defined and enforced when data is written to a database or file system.
+	- Data is stored in a pre-defined structure, following a specific schema.
+	- Provides a fixed, rigid structure that limits the flexibility of data analysis and processing.
+	- May be faster to process data due to the pre-defined structure and enforcement of data schema during write operations.
+	- Data quality issues may be caught during write operations, preventing bad data from being entered into the system.
+	- Requires strong data governance practices to ensure data is structured and entered consistently.
+
+- Spark support Data Support APIs
+
+
+------ Resiliant Distributed Datasets ------
+
+- RDD is the Spark's representation of a dataset that is distributed across the RAM or memory or lots of machines
+- RDD object is essentially a collection of elements that you can use to hold list of all tuples, dicts and list, etc
+- lazy evaluation:	ability to lazily evaluate the code postponing a calculation untill absolute necessary
+			(stores the intermediate result for later use in the cache to increase the processing speed)
+
+			      (cache can be 
+			       stored from
+			       this point)
+
++------+       +------+       +------+       +------+
+| RDD1 | T1 => | RDD2 | T2 => | RDD3 | T3 => | RDD4 |
++------+       +------+       +------+       +------+
+                                      \
+                                       \ T4
+                                        \
+                                         +------+
+                                         | RDD5 |
+                                         +------+
