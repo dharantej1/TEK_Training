@@ -1,0 +1,22 @@
+
+ /$$$$$$$$        /$$       /$$                                    
+|__  $$__/       | $$      | $$                                    
+   | $$  /$$$$$$ | $$$$$$$ | $$  /$$$$$$   /$$$$$$  /$$   /$$      
+   | $$ |____  $$| $$__  $$| $$ /$$__  $$ |____  $$| $$  | $$      
+   | $$  /$$$$$$$| $$  \ $$| $$| $$$$$$$$  /$$$$$$$| $$  | $$      
+   | $$ /$$__  $$| $$  | $$| $$| $$_____/ /$$__  $$| $$  | $$      
+   | $$|  $$$$$$$| $$$$$$$/| $$|  $$$$$$$|  $$$$$$$|  $$$$$$/      
+   |__/ \_______/|_______/ |__/ \_______/ \_______/ \______/       
+                                                                   
+                                                                   
+- Tableau is able to handle around 76 DataBases and 
+- The most Costly one compared to other Data visualization tools
+  present in the market
+
+5 important components of Tableau are:
+	 |---	1. Desktop
+	 |---	2. Public
+Tableau	-|---	3. Server
+	 |---	4. Reader
+	 |---	5. Prep
+
