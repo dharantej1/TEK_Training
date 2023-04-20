@@ -20,3 +20,26 @@ Tableau	-|---	3. Server
 	 |---	4. Reader
 	 |---	5. Prep
 
+
+
+====== 20th April 2023 ======
+
+- Tableau sets and set unions (left, right, inner, full joins)
+
+- extract filter - 1mb volume - (stores only the wanted data in the storage)
+- country - IND US UK
+-- IND - 500
+-- US - 1000
+-- UK - 700
+- total records = 2200
+
+
+- data source filter - 5mb volume - (it stores all the records but shows only the wanted information)
+- country - IND US UK
+-- IND - 500
+-- US - 1000
+-- UK - 700
+- total records = 2200
+
+
+
