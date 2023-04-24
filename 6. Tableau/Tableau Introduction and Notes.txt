@@ -42,4 +42,8 @@ Tableau	-|---	3. Server
 - total records = 2200
 
 
+====== 24th April 2023 ======
 
+- sheet level components: 
+
+- dashboard level components: sheets, objects, filters
