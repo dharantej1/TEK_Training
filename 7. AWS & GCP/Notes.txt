@@ -1,0 +1,164 @@
+
+  /$$$$$$  /$$                           /$$        /$$$$$$                                                /$$     /$$                    
+ /$$__  $$| $$                          | $$       /$$__  $$                                              | $$    |__/                    
+| $$  \__/| $$  /$$$$$$  /$$   /$$  /$$$$$$$      | $$  \__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$  /$$   /$$ /$$$$$$   /$$ /$$$$$$$   /$$$$$$ 
+| $$      | $$ /$$__  $$| $$  | $$ /$$__  $$      | $$       /$$__  $$| $$_  $$_  $$ /$$__  $$| $$  | $$|_  $$_/  | $$| $$__  $$ /$$__  $$
+| $$      | $$| $$  \ $$| $$  | $$| $$  | $$      | $$      | $$  \ $$| $$ \ $$ \ $$| $$  \ $$| $$  | $$  | $$    | $$| $$  \ $$| $$  \ $$
+| $$    $$| $$| $$  | $$| $$  | $$| $$  | $$      | $$    $$| $$  | $$| $$ | $$ | $$| $$  | $$| $$  | $$  | $$ /$$| $$| $$  | $$| $$  | $$
+|  $$$$$$/| $$|  $$$$$$/|  $$$$$$/|  $$$$$$$      |  $$$$$$/|  $$$$$$/| $$ | $$ | $$| $$$$$$$/|  $$$$$$/  |  $$$$/| $$| $$  | $$|  $$$$$$$
+ \______/ |__/ \______/  \______/  \_______/       \______/  \______/ |__/ |__/ |__/| $$____/  \______/    \___/  |__/|__/  |__/ \____  $$
+                                                                                    | $$                                         /$$  \ $$
+                                                                                    | $$                                        |  $$$$$$/
+                                                                                    |__/                                         \______/ 
+
+  /$$$$$$   /$$$$$$  /$$$$$$$          /$$$  /$$$$$$                                /$$           /$$$  
+ /$$__  $$ /$$__  $$| $$__  $$        /$$_/ /$$__  $$                              | $$          |_  $$ 
+| $$  \__/| $$  \__/| $$  \ $$       /$$/  | $$  \__/  /$$$$$$   /$$$$$$   /$$$$$$ | $$  /$$$$$$   \  $$
+| $$ /$$$$| $$      | $$$$$$$/      | $$   | $$ /$$$$ /$$__  $$ /$$__  $$ /$$__  $$| $$ /$$__  $$   | $$
+| $$|_  $$| $$      | $$____/       | $$   | $$|_  $$| $$  \ $$| $$  \ $$| $$  \ $$| $$| $$$$$$$$   | $$
+| $$  \ $$| $$    $$| $$            |  $$  | $$  \ $$| $$  | $$| $$  | $$| $$  | $$| $$| $$_____/   /$$/
+|  $$$$$$/|  $$$$$$/| $$             \  $$$|  $$$$$$/|  $$$$$$/|  $$$$$$/|  $$$$$$$| $$|  $$$$$$$ /$$$/ 
+ \______/  \______/ |__/              \___/ \______/  \______/  \______/  \____  $$|__/ \_______/|___/  
+                                                                          /$$  \ $$                     
+                                                                         |  $$$$$$/                     
+                                                                          \______/                      
+
+====== 25th April 2023 ======
+
+Introduction
+Background Experience
+Tech Stack
+Cloud Computing Familiarity
+Movies/ Series
+
+\______Self Introduction______/
+
+Requirements
+Storage
+Processing
+Network
+Power
+Heat Dissipation
+
+
+The NIST Definition of Cloud Computing:
+	Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared 
+	pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that 
+	can be rapidly provisioned and released with minimal management effort or service provider interaction. 
+	This cloud model is composed of five essential characteristics, three service models, and four deployment 
+	models.
+
+
+====== Essential Characteristics ======
+	On-demand self-service
+	Broad network access
+	Resource pooling
+	Rapid elasticity
+	Measured service
+
+====== Deployment Models ======
+Private cloud. 
+	The cloud infrastructure is provisioned for exclusive use by a single organization
+	comprising multiple consumers (e.g., business units). It may be owned, managed, and 
+	operated by the organization, a third party, or some combination of them, and it may exist 
+	on or off premises.
+
+Community cloud. 
+	The cloud infrastructure is provisioned for exclusive use by a specific 
+	community of consumers from organizations that have shared concerns (e.g., mission, 
+	security requirements, policy, and compliance considerations). It may be owned, 
+	managed, and operated by one or more of the organizations in the community, a third 
+	party, or some combination of them, and it may exist on or off premises.
+
+Public cloud. 
+	The cloud infrastructure is provisioned for open use by the general public. It may be 
+	owned, managed, and operated by a business, academic, or government organization, or 
+	some combination of them. It exists on the premises of the cloud provider.
+
+Hybrid cloud. 
+	The cloud infrastructure is a composition of two or more distinct cloud
+	infrastructures (private, community, or public) that remain unique entities, but are bound 
+	together by standardized or proprietary technology that enables data and application 
+	portability (e.g., cloud bursting for load balancing between clouds).
+
+
+====== Capstone Project ======
+Project No 4: 
+	Team Members:
+		1. Mukund Sahu
+		2. Neel Madhab Roy
+		3. Parth Tyagu
+		4. Pranshu Vashist
+		5. Puranjay Kwatra
+		6. Pusthakala Dharan Tej
+
+
+====== GCP Resouorce Hierarchy ======
+┌────────────────────────────────────┐
+│            Organization            │
+│  (optional, top-level container)   │
+├────────────────────────────────────┤
+│             Folders                │
+│   (optional, logical containers)   │
+├────────────────────────────────────┤
+│            Projects                │
+│ (required, used for billing and    │
+│       resource isolation)          │
+├────────────────────────────────────┤
+│     Compute Engine Instances       │
+│         (virtual machines)         │
+├────────────────────────────────────┤
+│   App Engine, Kubernetes Engine,   │
+│ Cloud Functions, Cloud Run, Cloud  │
+│            Dataproc, etc.          │
+│      (managed services/platforms)  │
+├────────────────────────────────────┤
+│          Storage Buckets           │
+│     (Cloud Storage, Bigtable, etc) │
+├────────────────────────────────────┤
+│           Cloud SQL, Cloud         │
+│          Spanner, Cloud Bigtable   │
+│        (managed databases)         │
+├────────────────────────────────────┤
+│           Cloud Pub/Sub            │
+│      (managed messaging service)   │
+├────────────────────────────────────┤
+│           Cloud Tasks              │
+│    (managed task execution service)│
+├────────────────────────────────────┤
+│           Cloud IAM                │
+│    (Identity and Access Management │
+│                service)            │
+└────────────────────────────────────┘
+(or)
+
+- Folders are used for segregation
+
+
+/-------------- Hierarchy Diagram --------------\
+- Organization
+  - Folders (optional)
+    - Projects
+      - Compute Engine Instances
+      - Managed Services/Platforms
+        - App Engine
+        - Kubernetes Engine
+        - Cloud Functions
+        - Cloud Run
+        - Cloud Dataproc
+        - etc.
+      - Storage
+        - Cloud Storage
+        - Cloud Bigtable
+        - etc.
+      - Managed Databases
+        - Cloud SQL
+        - Cloud Spanner
+        - Cloud Bigtable
+        - etc.
+      - Managed Messaging Service
+        - Cloud Pub/Sub
+      - Managed Task Execution Service
+        - Cloud Tasks
+      - Identity and Access Management Service
+        - Cloud IAM
