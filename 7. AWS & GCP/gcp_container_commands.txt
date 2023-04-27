@@ -1,0 +1,9 @@
+kubectl create deployment dharan-dep --image=nginx:1.10.0
+
+kubectl expose deployment dharan-dep --type="LoadBalancer" --port=80
+
+kubectl scale deployment dharan-dep --replicas=4
+
+kubectl get pods
+
+kubectl get deployment
