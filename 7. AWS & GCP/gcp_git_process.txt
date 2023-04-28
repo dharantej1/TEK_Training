@@ -1,0 +1,3 @@
+gcloud source repos clone dharan-rep --project=projectnew1-384808
+
+git config --global user.email “pdharantej@teksystems.com” &  git config --global user.name “pdharantej”
