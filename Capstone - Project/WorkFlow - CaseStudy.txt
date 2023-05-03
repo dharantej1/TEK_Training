@@ -1,0 +1,41 @@
+
+To complete the project, follow these steps:
+
+Set up a GCP project:
+
+Create a new Google Cloud Platform (GCP) project or use an existing one.
+Enable billing and APIs for BigQuery, Dataproc, and other required services.
+Install and set up the Google Cloud SDK and the required Python libraries (e.g., google-cloud-bigquery, pyspark).
+Prepare the dataset:
+
+Explore the natality dataset available in BigQuery.
+Create a new dataset in BigQuery and import the natality dataset into it.
+Write a SQL query to clean and preprocess the data, selecting only the columns required for linear regression (gestation weeks, mother's age, father's age, mother's weight gain during pregnancy, and Apgar score). Also, remove any rows with missing or invalid data.
+Split the dataset into training and testing sets:
+
+Write a SQL query to randomly split the preprocessed data into training (80%) and testing (20%) sets.
+Set up Apache Spark and Spark ML on Dataproc:
+
+Create a Dataproc cluster with Apache Spark and PySpark installed.
+Configure the cluster to access the BigQuery dataset.
+Build and train the linear regression model:
+
+Write a PySpark script to read the training dataset from BigQuery.
+Use Spark ML's LinearRegression class to define the linear regression model.
+Train the model using the training dataset and set the appropriate hyperparameters (e.g., maxIter, regParam, elasticNetParam).
+Evaluate the model:
+
+Use the trained model to make predictions on the testing dataset.
+Calculate the evaluation metrics, such as Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-squared, to assess the model's performance.
+Submit the PySpark job to Dataproc:
+
+Package the PySpark script and dependencies into a .zip file.
+Submit the PySpark job to the Dataproc cluster, specifying the input and output paths.
+Analyze the results:
+
+Retrieve the output from the Dataproc job, including the trained model parameters and evaluation metrics.
+Interpret the results and suggest possible improvements or additional features to enhance the model's performance.
+Clean up resources:
+
+Delete the Dataproc cluster and any other resources created during the project to avoid incurring additional costs.
+By following these steps, you should be able to complete the project using GCP, BigQuery, Dataproc, Apache Spark, and Spark ML.
