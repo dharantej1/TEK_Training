@@ -8,3 +8,7 @@
 4. Informatica
 
 5. Data Analysis
+
+6. Tableau
+
+7. AWS and GCP
