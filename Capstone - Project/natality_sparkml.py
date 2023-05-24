@@ -63,3 +63,30 @@ print("Intercept:" + str(model.intercept))
 print("R^2:" + str(model.summary.r2))
 model.summary.residuals.show()
 
+
+from pyspark.ml.regression import RandomForestRegressor
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Create a RandomForestRegressor
+rf = RandomForestRegressor(numTrees=10)
+
+# Train the model
+model_rf = rf.fit(training_data)
+
+# Make predictions on the training data
+predictions = model_rf.transform(training_data)
+
+# Evaluate the model. The default metric for the RegressionEvaluator is rmse (Root Mean Squared Error)
+evaluator = RegressionEvaluator(labelCol="label", predictionCol="prediction")
+
+# You can also choose other metrics like mse (Mean Squared Error), mae (Mean Absolute Error), r2 (R Square)
+rmse = evaluator.evaluate(predictions)
+mse = evaluator.evaluate(predictions, {evaluator.metricName: "mse"})
+mae = evaluator.evaluate(predictions, {evaluator.metricName: "mae"})
+r2 = evaluator.evaluate(predictions, {evaluator.metricName: "r2"})
+
+print("Root Mean Squared Error (RMSE) on training data: %g" % rmse)
+print("Mean Squared Error (MSE) on training data: %g" % mse)
+print("Mean Absolute Error (MAE) on training data: %g" % mae)
+print("R Square (R2) on training data: %g" % r2)
+
